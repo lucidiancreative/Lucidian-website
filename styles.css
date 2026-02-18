@@ -1,0 +1,857 @@
+/* ===== CSS Variables ===== */
+:root {
+    --color-bg: #f8f9fa;
+    --color-bg-alt: #ffffff;
+    --color-text: #333333;
+    --color-text-light: #606367;
+    --color-accent: #252627;
+    --color-accent-hover: #33393e;
+    --color-pink: #e8a0a0;
+    --color-heading: #2d2d2d;
+    --font-main: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    --max-width: 1200px;
+    --transition: 0.3s ease;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.12);
+    --gradient-accent: linear-gradient(135deg, var(--color-accent) 0%, #272d31 100%);
+    --gradient-pink: linear-gradient(135deg, var(--color-pink) 0%, #d4a5c9 100%);
+}
+
+/* ===== Reset & Base ===== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+a:hover {
+    color: var(--color-accent-hover);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animate-fade-in {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-delay-1 { animation-delay: 0.1s; }
+.animate-delay-2 { animation-delay: 0.2s; }
+.animate-delay-3 { animation-delay: 0.3s; }
+
+/* ===== Layout ===== */
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ===== Header ===== */
+header {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition);
+}
+
+header:hover {
+    box-shadow: var(--shadow-md);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    height: 120px;
+    transition: transform var(--transition);
+}
+
+.logo:hover {
+    transform: scale(1.02);
+}
+
+nav {
+    display: flex;
+    gap: 32px;
+}
+
+nav a {
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: 1.35rem;
+    position: relative;
+    padding: 8px 0;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-accent);
+    transition: all var(--transition);
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+nav a:hover {
+    color: var(--color-accent);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+    padding: 100px 0 120px;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(180deg, #ffffff 0%, var(--color-bg) 100%);
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(58, 124, 189, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(232, 160, 160, 0.05) 0%, transparent 50%);
+    animation: gradientShift 15s ease infinite;
+    background-size: 200% 200%;
+    z-index: 0;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-logo {
+    max-width: 700px;
+    margin-bottom: 32px;
+    animation: float 6s ease-in-out infinite;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    color: var(--color-heading);
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.8rem;
+    color: var(--color-text-light);
+    max-width: 600px;
+    margin: 0 auto 32px;
+}
+
+.hero .tagline {
+    font-size: 1.8rem;
+    font-style: italic;
+    color: var(--color-text-light);
+    background: linear-gradient(135deg, var(--color-text-light) 0%, var(--color-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ===== Products Section ===== */
+.products {
+    padding: 100px 0;
+    position: relative;
+    background: linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%);
+    overflow: hidden;
+}
+
+.products::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('Lucidian log v2.png') repeat;
+    opacity: 0.75;
+    background-size: 400px;
+}
+
+.products .container {
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.25rem;
+    color: var(--color-heading);
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--color-text-light);
+    font-size: 1.1rem;
+    margin-bottom: 60px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.products .section-title {
+    color: var(--color-heading);
+}
+
+.products .section-subtitle {
+    color: var(--color-text-light);
+}
+
+.products-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+a.product-card {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 48px 36px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a.product-card:hover {
+    color: inherit;
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-accent);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.product-card:nth-child(2)::before {
+    background: linear-gradient(135deg, #f0b429 0%, #f7d070 100%);
+}
+
+.product-card:nth-child(3)::before {
+    background: var(--gradient-pink);
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.product-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Cinestorm card with background image */
+a.product-card.card-cinestorm {
+    background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%),
+                url('Cinestorm-background.png') center/cover no-repeat;
+}
+
+/* EmojiCode card with background image */
+a.product-card.card-emojicode {
+    background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%),
+                url('Emoji-Code-background.png') center/cover no-repeat;
+}
+
+/* Gen+ card with background image */
+a.product-card.card-genplus {
+    background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%),
+                url('Gen-plus-background.png') center/cover no-repeat;
+}
+
+/* Light text for cards with background images */
+a.product-card.card-cinestorm h3,
+a.product-card.card-cinestorm p,
+a.product-card.card-genplus h3,
+a.product-card.card-genplus p,
+a.product-card.card-emojicode h3,
+a.product-card.card-emojicode p {
+    color: #ffffffb2;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.product-icon {
+    font-size: 3.5rem;
+    margin-bottom: 24px;
+    display: inline-block;
+    transition: transform 0.4s ease;
+}
+
+.product-icon .card-logo {
+    height: 120px;
+    width: auto;
+}
+
+.product-card:hover .product-icon {
+    transform: scale(1.15);
+    animation: pulse 1s ease infinite;
+}
+
+.product-card h3 {
+    font-size: 1.8em;
+    color: var(--color-heading);
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+
+.product-card p {
+    color: var(--color-text-light);
+    margin-bottom: 28px;
+    font-size: 1.35rem;
+    line-height: 1.7;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #c74e4e 0%, #d65454 100%);
+    color: white;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all var(--transition);
+    box-shadow: 0 4px 15px rgba(232, 160, 160, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(232, 160, 160, 0.5);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+    box-shadow: none;
+}
+
+.btn-outline:hover {
+    background: var(--color-accent);
+    color: white;
+}
+
+/* ===== About Section ===== */
+.about {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4f8 100%);
+    position: relative;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233a7cbd' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.about h2 {
+    font-size: 2.25rem;
+    color: var(--color-heading);
+    margin-bottom: 28px;
+    font-weight: 700;
+}
+
+.about p {
+    font-size: 1.35rem;
+    color: var(--color-text-light);
+    line-height: 1.9;
+}
+
+/* ===== Contact Section ===== */
+.contact {
+    padding: 80px 0;
+    text-align: center;
+    background: var(--color-bg);
+}
+
+.contact h2 {
+    font-size: 1.75rem;
+    color: var(--color-heading);
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.contact p {
+    color: var(--color-text-light);
+    margin-bottom: 24px;
+    font-size: 1.1rem;
+}
+
+.contact a.email {
+    font-size: 1.4rem;
+    font-weight: 600;
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all var(--transition);
+    display: inline-block;
+}
+
+.contact a.email:hover {
+    transform: scale(1.05);
+}
+
+/* ===== Footer ===== */
+footer {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    color: rgba(255, 255, 255, 0.612);
+    padding: 40px 0;
+    text-align: center;
+}
+
+footer p {
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+footer a:hover {
+    color: white;
+}
+
+/* ===== Product Page Styles ===== */
+.product-hero {
+    padding: 100px 0;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(180deg, #ffffff 0%, var(--color-bg) 100%);
+    overflow: hidden;
+}
+
+.product-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('Lucidian log v2.png') repeat;
+    opacity: 0.08;
+    background-size: 400px;
+    z-index: 0;
+}
+
+.product-hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.product-hero h1 {
+    font-size: 3.5rem;
+    color: var(--color-heading);
+    margin-bottom: 20px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--color-heading) 0%, var(--color-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.product-hero .subtitle {
+    font-size: 1.4rem;
+    color: var(--color-text-light);
+    max-width: 700px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+}
+
+.product-hero .icon {
+    font-size: 5rem;
+    margin-bottom: 28px;
+    display: inline-block;
+    animation: float 4s ease-in-out infinite;
+}
+
+.features {
+    padding: 100px 0;
+    background: var(--color-bg-alt);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 48px;
+}
+
+.feature {
+    text-align: center;
+    padding: 32px 24px;
+    border-radius: 16px;
+    transition: all var(--transition);
+    background: transparent;
+}
+
+.feature:hover {
+    background: var(--color-bg);
+    transform: translateY(-4px);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: inline-block;
+    transition: transform var(--transition);
+}
+
+.feature:hover .feature-icon {
+    transform: scale(1.1);
+}
+
+.feature h3 {
+    font-size: 1.35rem;
+    color: var(--color-heading);
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+
+.feature p {
+    color: var(--color-text-light);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.cta-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('Lucidian log v2.png') repeat;
+    opacity: 0.15;
+    background-size: 400px;
+}
+
+.cta-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.cta-section h2 {
+    font-size: 2.25rem;
+    color: white;
+    margin-bottom: 16px;
+    font-weight: 700;
+    position: relative;
+}
+
+.cta-section p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 36px;
+    font-size: 1.2rem;
+    position: relative;
+}
+
+.cta-section .btn {
+    background: white;
+    color: var(--color-accent);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cta-section .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    color: var(--color-accent);
+}
+
+/* ===== Team Section ===== */
+.team-section {
+    padding: 80px 0;
+    position: relative;
+    background: linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%);
+    overflow: hidden;
+}
+
+.team-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('Lucidian log v2.png') repeat;
+    opacity: 0.15;
+    background-size: 400px;
+}
+
+.team-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.team-member {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 32px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.member-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-accent) 0%, #5a9fd4 100%);
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+}
+
+.member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.team-member h3 {
+    font-size: 1.4rem;
+    color: var(--color-heading);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.member-role {
+    font-size: 1rem;
+    color: var(--color-accent);
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.member-bio {
+    font-size: 1rem;
+    color: var(--color-text-light);
+    line-height: 1.7;
+}
+
+/* ===== Back Link ===== */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 40px;
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 50px;
+    transition: all var(--transition);
+}
+
+.back-link:hover {
+    color: var(--color-accent);
+    background: rgba(58, 124, 189, 0.08);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .hero {
+        padding: 70px 0 90px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero .tagline {
+        font-size: 1.25rem;
+    }
+
+    nav {
+        gap: 20px;
+    }
+
+    nav a {
+        font-size: 0.85rem;
+    }
+
+    .product-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .products, .features, .about {
+        padding: 70px 0;
+    }
+
+    .section-title {
+        font-size: 1.85rem;
+    }
+
+    .cta-section h2 {
+        font-size: 1.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header .container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    nav {
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero-logo {
+        max-width: 280px;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-hero .icon {
+        font-size: 4rem;
+    }
+
+    .product-hero h1 {
+        font-size: 2rem;
+    }
+}
