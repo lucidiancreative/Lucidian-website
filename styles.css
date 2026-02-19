@@ -331,20 +331,17 @@ a.product-card:hover {
 
 /* Cinestorm card with background image */
 a.product-card.card-cinestorm {
-    background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%),
-                url('Cinestorm-background-light.png') center/cover no-repeat;
+    background: #000 url('lucidian-website-images/Cinestorm-background-light.png') center/cover no-repeat;
 }
 
 /* EmojiCode card with background image */
 a.product-card.card-emojicode {
-    background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%),
-                url('Emoji-Code-background-light.png') center/cover no-repeat;
+    background: #000 url('lucidian-website-images/Emoji-Code-background-light.png') center/cover no-repeat;
 }
 
 /* Gen+ card with background image */
 a.product-card.card-genplus {
-    background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%),
-                url('Gen-plus-background-light.png') center/cover no-repeat;
+    background: #000 url('lucidian-website-images/Gen-plus-background-light.png') center/cover no-repeat;
 }
 
 /* Light text for cards with background images */
