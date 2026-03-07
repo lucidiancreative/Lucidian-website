@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moji Pro — Lifetime License</title>
+  <link rel="icon" type="image/png" href="Emoticon_Smile_Face_v4.png">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0e0e12;
+      color: #e8e8ed;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      max-width: 440px;
+      width: 100%;
+      background: linear-gradient(145deg, #1a1a22 0%, #14141c 100%);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .emoji-row {
+      font-size: 2.2rem;
+      letter-spacing: 0.3rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.02em;
+    }
+
+    .tagline {
+      color: #8888a0;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .features {
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 0;
+      font-size: 0.9rem;
+      color: #b0b0c0;
+    }
+
+    .feature span {
+      font-size: 1.1rem;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 1.5rem 0;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .price {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.4rem;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .price-label {
+      color: #6b6b80;
+      font-size: 0.85rem;
+    }
+
+    .once {
+      color: #6b6b80;
+      font-size: 0.82rem;
+      margin-bottom: 2rem;
+    }
+
+    .buy-btn {
+      width: 100%;
+      padding: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.01em;
+    }
+
+    .buy-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
+    }
+
+    .buy-btn:active {
+      transform: translateY(0);
+    }
+
+    .note {
+      margin-top: 1.2rem;
+      font-size: 0.78rem;
+      color: #55556a;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="emoji-row">🔥 ⚡ 🎯 🚀</div>
+    <h1>Moji Pro</h1>
+    <p class="tagline">Emoji overlays for every language in VS Code.<br>Learn code visually. Remember it forever.</p>
+
+    <div class="features">
+      <div class="feature"><span>✅</span> All programming languages unlocked</div>
+      <div class="feature"><span>✅</span> Lifetime license — pay once, own forever</div>
+      <div class="feature"><span>✅</span> Use on up to 5 devices simultaneously</div>
+      <div class="feature"><span>✅</span> All future updates included</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="price-row">
+      <span class="price">$6.99</span>
+      <span class="price-label">USD</span>
+    </div>
+    <p class="once">One-time payment · No subscription</p>
+
+    <button class="buy-btn" onclick="openCheckout()">Purchase Moji Pro</button>
+
+    <p class="note">
+      Secure checkout powered by Paddle. After purchase, activate in VS Code
+      using the email you purchased with.
+    </p>
+  </div>
+
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+  <script>
+    // Initialize Paddle
+    Paddle.Initialize({
+      token: 'live_48cb1b97ec66ee1052738ad2997'
+    });
+
+    function openCheckout() {
+      Paddle.Checkout.open({
+        items: [
+          { priceId: 'pri_01kk2ssqscra48p394schmkyw9', quantity: 1 }
+        ]
+      });
+    }
+  </script>
+
+</body>
+</html>
