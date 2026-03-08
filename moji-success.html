@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moji Pro — Purchase Complete</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0e0e12;
+      color: #e8e8ed;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      max-width: 480px;
+      width: 100%;
+      background: linear-gradient(145deg, #1a1a22 0%, #14141c 100%);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 200px;
+      background: radial-gradient(ellipse, rgba(34, 197, 94, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .check {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: #8888a0;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .license-box {
+      background: #0e0e12;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .license-label {
+      font-size: 0.75rem;
+      color: #6b6b80;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.6rem;
+    }
+
+    .license-key {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #fff;
+      letter-spacing: 0.05em;
+      word-break: break-all;
+      user-select: all;
+    }
+
+    .copy-btn {
+      width: 100%;
+      padding: 0.85rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 1.5rem;
+    }
+
+    .copy-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
+    }
+
+    .copy-btn.copied {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    }
+
+    .steps {
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      font-size: 0.88rem;
+      color: #b0b0c0;
+      line-height: 1.5;
+    }
+
+    .step-num {
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      font-weight: 700;
+      font-size: 0.75rem;
+      min-width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .note {
+      font-size: 0.78rem;
+      color: #55556a;
+      line-height: 1.5;
+    }
+
+    /* Loading state */
+    .loading { display: block; }
+    .success { display: none; }
+    .error-state { display: none; }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255,255,255,0.1);
+      border-top-color: #6366f1;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 2rem auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .error-msg {
+      color: #f87171;
+      font-size: 0.95rem;
+      margin: 1rem 0;
+      line-height: 1.5;
+    }
+
+    .retry-btn {
+      padding: 0.7rem 1.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .retry-btn:hover {
+      background: rgba(255,255,255,0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- Loading State -->
+    <div class="loading" id="loading">
+      <div class="check">🎉</div>
+      <h1>Processing your purchase...</h1>
+      <p class="subtitle">Retrieving your license key</p>
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Success State -->
+    <div class="success" id="success">
+      <div class="check">✅</div>
+      <h1>Thank you for purchasing Moji Pro!</h1>
+      <p class="subtitle">Here's your license key. Copy it and activate in VS Code.</p>
+
+      <div class="license-box">
+        <div class="license-label">Your License Key</div>
+        <div class="license-key" id="licenseKey">—</div>
+      </div>
+
+      <button class="copy-btn" id="copyBtn" onclick="copyKey()">Copy License Key</button>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <span>Open VS Code and make sure Moji is installed</span>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <span>Open the Command Palette (<strong>Ctrl+Shift+P</strong> or <strong>Cmd+Shift+P</strong>)</span>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <span>Search for <strong>"Moji Pro: Activate License"</strong> and paste your key</span>
+        </div>
+      </div>
+
+      <p class="note">
+        Save this key somewhere safe. You can use it on up to 5 devices.
+        If you need help, contact daniel@lucidiancreative.com
+      </p>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-state" id="errorState">
+      <div class="check">⏳</div>
+      <h1>Almost there...</h1>
+      <p class="error-msg" id="errorMsg">Your purchase is still being processed. This usually takes a few seconds.</p>
+      <button class="retry-btn" onclick="fetchLicense()">Try Again</button>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://txsfvojjzmoxtzhszzoa.supabase.co/functions/v1/moji-license/lookup-by-transaction';
+    const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR4c2Z2b2pqem1veHR6aHN6em9hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MTY2MzgsImV4cCI6MjA4ODM5MjYzOH0.4dsx0LktL5pwYAaN3JgVl5A5nEzB7W8KPHyhWapWMY4';
+
+    let licenseKey = '';
+    let retryCount = 0;
+    const MAX_RETRIES = 5;
+
+    // Get transaction ID from URL
+    function getTransactionId() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('_ptxn') || params.get('transaction_id');
+    }
+
+    async function fetchLicense() {
+      const txnId = getTransactionId();
+
+      if (!txnId) {
+        showError('No transaction ID found. Please check your purchase confirmation email for your license key.');
+        return;
+      }
+
+      showLoading();
+
+      try {
+        const res = await fetch(SUPABASE_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${ANON_KEY}`,
+          },
+          body: JSON.stringify({ transaction_id: txnId }),
+        });
+
+        const data = await res.json();
+
+        if (data.license_key) {
+          licenseKey = data.license_key;
+          showSuccess(licenseKey);
+        } else {
+          retryCount++;
+          if (retryCount <= MAX_RETRIES) {
+            // Webhook may not have fired yet — wait and retry
+            setTimeout(fetchLicense, 3000);
+          } else {
+            showError('Your purchase is confirmed but your license key is still being generated. Please refresh this page in a minute, or contact daniel@lucidiancreative.com for help.');
+          }
+        }
+      } catch (err) {
+        showError('Could not connect to the server. Please refresh the page to try again.');
+      }
+    }
+
+    function showLoading() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('success').style.display = 'none';
+      document.getElementById('errorState').style.display = 'none';
+    }
+
+    function showSuccess(key) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+      document.getElementById('errorState').style.display = 'none';
+      document.getElementById('licenseKey').textContent = key;
+    }
+
+    function showError(msg) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('success').style.display = 'none';
+      document.getElementById('errorState').style.display = 'block';
+      document.getElementById('errorMsg').textContent = msg;
+    }
+
+    function copyKey() {
+      navigator.clipboard.writeText(licenseKey).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy License Key';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Start fetching on page load
+    fetchLicense();
+  </script>
+
+</body>
+</html>

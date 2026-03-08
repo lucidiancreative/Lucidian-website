@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Moji Pro — Lifetime License</title>
-  <link rel="icon" type="image/png" href="Emoticon_Smile_Face_v4.png">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -181,7 +180,15 @@
   <script>
     // Initialize Paddle
     Paddle.Initialize({
-      token: 'live_48cb1b97ec66ee1052738ad2997'
+      token: 'live_48cb1b97ec66ee1052738ad2997',
+      eventCallback: function(event) {
+        if (event.name === 'checkout.completed') {
+          const txnId = event.data?.transaction_id;
+          if (txnId) {
+            window.location.href = 'https://lucidiancreative.com/moji-success.html?transaction_id=' + txnId;
+          }
+        }
+      }
     });
 
     function openCheckout() {
