@@ -112,6 +112,30 @@
       background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
     }
 
+    .install-btn {
+      display: block;
+      width: 100%;
+      padding: 0.85rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #e8e8ed;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 1.5rem;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .install-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-1px);
+    }
+
     .steps {
       text-align: left;
       margin-bottom: 1.5rem;
@@ -214,6 +238,8 @@
       </div>
 
       <button class="copy-btn" id="copyBtn" onclick="copyKey()">Copy License Key</button>
+
+      <a class="install-btn" href="https://marketplace.visualstudio.com/items?itemName=Lucidian.moji-pro" target="_blank" rel="noopener">Install Moji Pro in VS Code</a>
 
       <div class="steps">
         <div class="step">
