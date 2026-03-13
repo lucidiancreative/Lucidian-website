@@ -171,32 +171,15 @@
     <button class="buy-btn" onclick="openCheckout()">Purchase Moji Pro</button>
 
     <p class="note">
-      Secure checkout powered by Paddle. After purchase, activate in VS Code
-      using the email you purchased with.
+      Secure checkout powered by Stripe. After purchase, activate in VS Code
+      using the Command Palette.
     </p>
   </div>
 
-  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
   <script>
-    // Initialize Paddle
-    Paddle.Initialize({
-      token: 'live_48cb1b97ec66ee1052738ad2997',
-      eventCallback: function(event) {
-        if (event.name === 'checkout.completed') {
-          const txnId = event.data?.transaction_id;
-          if (txnId) {
-            window.location.href = 'https://lucidiancreative.com/moji-success.html?transaction_id=' + txnId;
-          }
-        }
-      }
-    });
-
     function openCheckout() {
-      Paddle.Checkout.open({
-        items: [
-          { priceId: 'pri_01kk2ssqscra48p394schmkyw9', quantity: 1 }
-        ]
-      });
+      // Redirect to the Stripe Payment Link for Moji Pro
+      window.location.href = 'https://buy.stripe.com/28E3cwgxVaZ1bGlerb8Ra00';
     }
   </script>
 

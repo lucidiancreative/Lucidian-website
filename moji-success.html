@@ -253,17 +253,17 @@
     let retryCount = 0;
     const MAX_RETRIES = 5;
 
-    // Get transaction ID from URL
-    function getTransactionId() {
+    // Get Stripe checkout session ID from URL
+    function getSessionId() {
       const params = new URLSearchParams(window.location.search);
-      return params.get('_ptxn') || params.get('transaction_id');
+      return params.get('session_id');
     }
 
     async function fetchLicense() {
-      const txnId = getTransactionId();
+      const sessionId = getSessionId();
 
-      if (!txnId) {
-        showError('No transaction ID found. Please check your purchase confirmation email for your license key.');
+      if (!sessionId) {
+        showError('No session ID found. Please check your purchase confirmation email for your license key.');
         return;
       }
 
@@ -276,7 +276,7 @@
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${ANON_KEY}`,
           },
-          body: JSON.stringify({ transaction_id: txnId }),
+          body: JSON.stringify({ session_id: sessionId }),
         });
 
         const data = await res.json();
